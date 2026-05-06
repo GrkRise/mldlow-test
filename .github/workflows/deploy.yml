@@ -41,10 +41,10 @@ jobs:
           cp requirements.txt space_repo/requirements.txt
           cp Dockerfile space_repo/Dockerfile
           
-          # ❗️ ВАЖНО: Удаляем артефакты разработки, которые не нужны в проде!
-          # Hugging Face заблокирует пуш, если мы попытаемся отправить бинарный файл mlflow.db
-          rm -f space_repo/src/mlflow.db
-          rm -rf space_repo/src/__pycache__
+          # ❗️ ЖЕЛЕЗОБЕТОННАЯ ОЧИСТКА МУСОРА:
+          # Ищем и удаляем файлы mlflow.db и кэш __pycache__ во всех вложенных папках
+          find space_repo -name "mlflow.db" -type f -delete
+          find space_repo -name "__pycache__" -type d -exec rm -rf {} +
           
           # Пушим на сервер
           cd space_repo
