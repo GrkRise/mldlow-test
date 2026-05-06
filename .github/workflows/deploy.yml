@@ -41,6 +41,11 @@ jobs:
           cp requirements.txt space_repo/requirements.txt
           cp Dockerfile space_repo/Dockerfile
           
+          # ❗️ ВАЖНО: Удаляем артефакты разработки, которые не нужны в проде!
+          # Hugging Face заблокирует пуш, если мы попытаемся отправить бинарный файл mlflow.db
+          rm -f space_repo/src/mlflow.db
+          rm -rf space_repo/src/__pycache__
+          
           # Пушим на сервер
           cd space_repo
           git add .
