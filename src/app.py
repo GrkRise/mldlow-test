@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.responses import RedirectResponse
 from pydantic import BaseModel
 import joblib
 import os
@@ -11,6 +12,13 @@ MODEL_PATH = os.path.join(BASE_DIR, "..", "models", "model.pkl")
 model = joblib.load(MODEL_PATH)
 
 app = FastAPI(title="Iris ML API", description="API для предсказания сорта Ириса")
+
+
+# --- НОВЫЙ ЭНДПОИНТ ДЛЯ ГЛАВНОЙ СТРАНИЦЫ ---
+@app.get("/")
+def read_root():
+    # Автоматически перенаправляем пользователя на страницу с документацией
+    return RedirectResponse(url="/docs")
 
 
 # 3. Контракт данных (Pydantic). FastAPI не пропустит запросы с неверными типами.
