@@ -26,5 +26,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           gh issue create \
+            --repo ${{ github.repository }} \
             --title "🚨 Сбой в продакшене: Сервер недоступен!" \
             --body "Эндпоинт /health не ответил статусом 200. Проверьте логи сервера Hugging Face."
